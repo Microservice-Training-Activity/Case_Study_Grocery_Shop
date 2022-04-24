@@ -2,6 +2,8 @@ package com.ibm.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -11,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Cart {
 	
 	@Id
-	@NotNull
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="product_id") 
 	int id;
 	
@@ -22,14 +24,14 @@ public class Cart {
 	String catagory;
 	
 	@Column(name="price") 
-	Long price;
+	int price;
 	
 	
 	public Cart() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Cart(@NotNull int id, String productname, String catagory, Long price) {
+	public Cart(int id, String productname, String catagory, int price) {
 		super();
 		this.id = id;
 		this.productname = productname;
@@ -61,11 +63,11 @@ public class Cart {
 		this.catagory = catagory;
 	}
 
-	public Long getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(Long price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	

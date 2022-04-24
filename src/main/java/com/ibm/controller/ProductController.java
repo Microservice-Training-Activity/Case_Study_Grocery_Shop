@@ -87,6 +87,7 @@ public class ProductController {
 	    public String saveProduct(@Valid @ModelAttribute("cart")Cart cart, 
 	    	      BindingResult result, ModelMap model) 
 	    {
+		 System.out.println("Cart =>"+cart.toString());
 		 if (result.hasErrors()) {
 	            return "error";
 	        }

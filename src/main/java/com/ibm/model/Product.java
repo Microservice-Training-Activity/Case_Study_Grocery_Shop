@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -15,7 +17,7 @@ public class Product {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(@NotNull int id, String productname, String catagory, Long price) {
+	public Product(int id, String productname, String catagory, Long price) {
 		super();
 		this.id = id;
 		this.productname = productname;
@@ -24,7 +26,7 @@ public class Product {
 	}
 
 	@Id
-	@NotNull
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="product_id") 
 	int id;
 	
