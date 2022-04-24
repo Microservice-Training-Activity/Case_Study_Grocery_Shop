@@ -9,14 +9,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 import com.ibm.model.Cart;
+import com.ibm.model.Product;
 import com.ibm.repository.CartRepository;
 import com.ibm.service.CartService;
+import com.ibm.service.ProductService;
 
 @SpringBootApplication
 public class ProductApplication implements CommandLineRunner {
 
 	@Autowired
-	CartService cartService;
+	ProductService productService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ProductApplication.class, args);
@@ -24,7 +26,8 @@ public class ProductApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		cartService.addProduct(new Cart(1, "Apple", "Fruit",100));
+		productService.addProduct(new Product(1,"Tomato","vegetables",20L));
+		productService.addProduct(new Product(2,"Potato","vegetables",30L));
 	}
 
 }

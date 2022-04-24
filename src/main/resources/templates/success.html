@@ -23,16 +23,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="cart : ${cart}">
-                    <td th:text="${cart.id}">ID</td>
-                    <td th:text="${cart.productname}">productname</td>
-                    <td th:text="${cart.catagory}">catagory</td>
-                    <td th:text="${cart.price}">>price</td>
+                <tr th:each="cartinfo : ${cart}">
+                    <td th:text="${cartinfo.id}">ID</td>
+                    <td th:text="${cartinfo.productname}">productname</td>
+                    <td th:text="${cartinfo.catagory}">catagory</td>
+                    <td th:text="${cartinfo.price}">>price</td>
                 </tr>
             </tbody>
      </table>
      <form th:action="@{/product/cart/order}" id="form"
-			method="GET">
+			method="GET">		
      <button type= "submit" class = "btn-primary btn mt-3"> Order Now</button>
      </form>
     </div>

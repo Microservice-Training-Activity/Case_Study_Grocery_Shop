@@ -33,12 +33,6 @@ public class ProductService {
 		return productRepo.saveAndFlush(product);
 	}
 	
-	public Product updateProduct(Product product) {
-		getProductById(product.getId());
-		return productRepo.saveAndFlush(product);
-		
-	}
-	
 	public void deleteById(int id)
     {
         productRepo.deleteById(id);

@@ -74,13 +74,13 @@ align-items:center;
             </tbody>
         </table>
  <div class="col-lg-3 dropdown p-1" modelAttribute="${cart}">      
-<form th:action="@{/product/cart}" id="form"
-			method="GET">
-	<select class="form-control" id="id" name="product_id" > 
+<form th:action="@{/product/savecart}" id="productname"
+			method="POST">
+	<select class="form-control" id="id" name="id" > 
         <option value="product">Select the Product</option>
         <option th:each="product : ${product}"
-                th:value="${product.productname}"
-                th:text="${product.productname} "></option>
+                th:value="${product.id}"
+                th:text="${product.productname}"></option>
     </select>
 <button type="submit" class="btn btn-info button">Add
 				to cart</button> </form>

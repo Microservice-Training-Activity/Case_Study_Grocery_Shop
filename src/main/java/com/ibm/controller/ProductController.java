@@ -1,6 +1,7 @@
 package com.ibm.controller;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.model.Cart;
 import com.ibm.model.Product;
 import com.ibm.service.CartService;
@@ -87,15 +90,10 @@ public class ProductController {
 	    public String saveProduct(@Valid @ModelAttribute("cart")Cart cart, 
 	    	      BindingResult result, ModelMap model) 
 	    {
-		 System.out.println("Cart =>"+cart.toString());
-		 if (result.hasErrors()) {
-	            return "error";
-	        }
-	        model.addAttribute("id", cart.getId());
-	        model.addAttribute("productname", cart.getProductname());
-	        model.addAttribute("catagory", cart.getCatagory());
-	        model.addAttribute("price",cart.getPrice());
-		 
+		 Product products = productService.getProductById(cart.getId());
+		 Cart cartinfo = (Cart) objectMapper(products);
+		 cartService.addProduct(cartinfo);
+		 model.addAttribute("cart", cartinfo);
 	        return "success";
 		 
 		 /*
@@ -104,7 +102,14 @@ public class ProductController {
 	    }
 	 
 	 
-	  @GetMapping("/showFormForUpdate/{id}")
+	 public static Object objectMapper(Object object){
+	    	ObjectMapper mapper = new ObjectMapper();
+	    	mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+	    	Cart cartinfo = mapper.convertValue(object, Cart.class);
+	        return cartinfo;
+	    }
+
+	@GetMapping("/showFormForUpdate/{id}")
 	    public String updateProduct(@PathVariable(value = "id") int id, Model model) {
 	        Product product = productService.getProductById(id);
 	        model.addAttribute("product", product);
@@ -131,7 +136,7 @@ public class ProductController {
 	@PutMapping("{id}")
 	public ResponseEntity<Product> updateConverionFactor(@PathVariable int id, @Valid @RequestBody Product product )
 	{
-		Product result = productService.updateProduct(product);
+		Product result = productService.addProduct(product);
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("{id}")
